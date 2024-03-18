@@ -1,0 +1,38 @@
+name: "Secret Scanning Custom Notifications"
+description: "A GitHub action that runs on a user specified frequency to retrieve new, closed and dismissed secret scanning alerts since last run. It sends out emails to the security managers."
+author: "ps-advanced-security"
+inputs:
+  frequency:
+    required: true
+    description: "Defines how often the action should run."
+  scope:
+    required: true
+    description: "Defines whether the Action should run on the repo, org or enterprise level."
+  token:
+    required: true
+    description: "The GitHub API token to use for the action."
+  new_alerts_filepath:
+    required: true
+    description: "The path to the file where the new alerts should be stored for email attachment."
+  closed_alerts_filepath:
+    required: true
+    description: "The path to the file where the closed alerts should be stored for email attachment."  
+  api_url:
+    required: false
+    description: "The GitHub API URL to use for the action. Needed only if you are using GitHub Enterprise Server."
+  repo:
+    required: false
+    description: "The repo to run the action on. Needed only if scope is repo and you intend to fetch alerts form other repos then the one where the action is running."
+  org:
+    required: false
+    description: "The org to run the action on. Needed only if scope is org and you intend to fetch alerts form other repos then the one where the action is running."
+  enterprise:
+    required: false
+    description: "The enterprise to run the action on. Required if you run in on the enterprise level."
+outputs:
+  summary-markdown: 
+    description: "The markdown summary of the action."
+ 
+runs:
+  using: "node16"
+  main: "dist/index.js"

@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "commonjs",
+    "outDir": "./lib",
+    "rootDir": "./src",
+    "strict": true,
+    "noImplicitAny": true,
+    "esModuleInterop": true,
+    "typeRoots": ["./types", "node_modules/@types"]
+  },
+  "include": ["src/**/*.ts"], // Add the missing file to the include array
+  "exclude": ["dist", "node_modules", "**/*.test.ts"]
+}
