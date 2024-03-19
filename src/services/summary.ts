@@ -3,13 +3,16 @@ import {SummaryTableRow} from '@actions/core/lib/summary'
 import {SecretScanningAlert} from '../types/common/main'
 
 export function addToSummary(title: string, alerts: SecretScanningAlert[]) {
-  const headers = ['Alert Number', 'Secret State', 'Secret Type', 'HTML URL']
+  const headers = ['Alert Number', 'Secret State', 'Secret Type', 'HTML URL','OrgName','OrgOwner']
   // Define the table rows
   const rows = alerts.map(alert => [
     alert.number.toString(),
     alert.state,
     alert.secret_type,
+    alert.html_url,
+    alert.html_url,
     alert.html_url
+
   ])
 
   // Add the table to the Action summary
