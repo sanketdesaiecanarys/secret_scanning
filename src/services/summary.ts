@@ -10,11 +10,10 @@ export function addToSummary(title: string, alerts: SecretScanningAlert[]) {
     alert.state,
     alert.secret_type,
     alert.html_url,
-    alert.html_url,
-    alert.html_url,
-    alert.html_url,
-    alert.html_url
-
+    alert.orgName,
+    alert.orgOwner,
+    alert.repoName,
+    alert.repoOwner
   ])
 
   // Add the table to the Action summary

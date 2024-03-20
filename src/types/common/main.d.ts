@@ -23,6 +23,10 @@ type SecretScanningAlert = {
   html_url: string
   state: string
   secret_type: string
+  orgName:string
+  orgOwner:string
+  repoOwner:string
+  repoName:string
 }
 
 type RateLimitOptions = {
