@@ -1,4 +1,4 @@
-export {inputsReturned, scopeInput, SecretScanningAlert, RateLimitOptions}
+export {inputsReturned, scopeInput, SecretScanningAlert, RateLimitOptions, Owner}
 
 type inputsReturned = {
   frequency: number
@@ -12,7 +12,7 @@ type inputsReturned = {
   closed_alerts_filepath: string
 }
 
-type scopeInput = 'organisation' | 'repository' | 'enterprise' | 'organization'
+type scopeInput = 'organisation' | 'repository' | 'enterprise' | 'members'
 
 type SecretScanningAlert = {
   number: number
@@ -24,7 +24,9 @@ type SecretScanningAlert = {
   state: string
   secret_type: string
   repository:RepoModel
-  login:string
+  login:string,
+  orgName: string,
+  orgOwner: string
 }
 type RepoModel = {
   node_id: string

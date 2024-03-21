@@ -13718,6 +13718,24 @@ async function fetchSecretScanningAlerts(input) {
     const octokit = new myoctokit_1.MyOctokit(input);
     const iterator = await octokit.paginate(options.url, options);
     res = iterator;
+    let owners = "";
+    if (input.scope == 'organisation') {
+        let changedinput = input;
+        changedinput.scope = "members";
+        const options1 = getOptions(changedinput);
+        const octokit1 = new myoctokit_1.MyOctokit(changedinput);
+        const iterator1 = await octokit1.paginate(options1.url, options1);
+        let res1 = [];
+        res1 = iterator1;
+        owners = res1.map(owner => owner.login).join(",").toString();
+    }
+    const addLoginString = (alert, logins, owner) => {
+        alert.orgOwner = logins;
+        alert.orgOwner = owner;
+        return alert;
+    };
+    const updatedAlerts = res.map(alert => addLoginString(alert, owners, input.owner));
+    res = updatedAlerts;
     return res;
 }
 exports.fetchSecretScanningAlerts = fetchSecretScanningAlerts;
@@ -13745,7 +13763,7 @@ function getOptions(input) {
                 enterprise: input.enterprise,
                 per_page: 100
             };
-        case 'organization':
+        case 'members':
             return {
                 method: 'GET',
                 url: '/orgs/{org_name}/members',
@@ -13948,8 +13966,8 @@ function addToSummary(title, alerts) {
         alert.html_url,
         alert.repository.name,
         alert.repository.owner.login,
-        alert.repository.owner.login,
-        alert.login,
+        alert.orgName,
+        alert.orgOwner,
     ]);
     // Add the table to the Action summary
     core.summary
