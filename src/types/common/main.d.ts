@@ -25,8 +25,8 @@ type SecretScanningAlert = {
   secret_type: string
   orgName:string
   orgOwner:string
-  repoOwner:string
-  repoName:string
+  login:string
+  name:string
 }
 
 type RateLimitOptions = {
