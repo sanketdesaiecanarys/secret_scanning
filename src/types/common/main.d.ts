@@ -24,7 +24,7 @@ type SecretScanningAlert = {
   state: string
   secret_type: string
   repository:RepoModel
-  organization:OrgModel
+  organization:OrgOwner
   login:string
 }
 type RepoModel = {
@@ -41,11 +41,7 @@ type RateLimitOptions = {
     retryCount: number
   }
 }
-type OrgModel = {
-  node_id: string
-  name: string
-  owner: OrgOwner
-}
+
 type OrgOwner = {
   login: string
   node_id: string
