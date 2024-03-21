@@ -12,7 +12,7 @@ export function addToSummary(title: string, alerts: SecretScanningAlert[]) {
     alert.html_url,
     alert.repository.name,
     alert.repository.owner.login,
-    alert.organization.name, 
+    alert.login, 
     alert.organization.owner.login
   ])
 

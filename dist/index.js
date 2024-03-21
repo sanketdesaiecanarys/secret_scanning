@@ -13745,10 +13745,17 @@ function getOptions(input) {
                 enterprise: input.enterprise,
                 per_page: 100
             };
-        case 'organization':
+        case 'organization_Owner':
             return {
                 method: 'GET',
-                url: 'orgs/{org_name}/members?role=admin',
+                url: '/orgs/{org_name}/members?role=admin',
+                org_name: input.owner,
+                per_page: 100
+            };
+        case 'organization_Name':
+            return {
+                method: 'GET',
+                url: '/orgs/{org_name}',
                 org_name: input.owner,
                 per_page: 100
             };
@@ -13948,7 +13955,7 @@ function addToSummary(title, alerts) {
         alert.html_url,
         alert.repository.name,
         alert.repository.owner.login,
-        alert.organization.name,
+        alert.login,
         alert.organization.owner.login
     ]);
     // Add the table to the Action summary
