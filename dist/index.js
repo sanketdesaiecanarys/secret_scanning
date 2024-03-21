@@ -13955,7 +13955,7 @@ function addToSummary(title, alerts) {
         alert.html_url,
         alert.repository.name,
         alert.repository.owner.login,
-        alert.login,
+        alert.html_url,
         alert.repository.owner.login
     ]);
     // Add the table to the Action summary
