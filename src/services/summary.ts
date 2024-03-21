@@ -5,6 +5,7 @@ import {SecretScanningAlert} from '../types/common/main'
 export function addToSummary(title: string, alerts: SecretScanningAlert[]) {
   const headers = ['Alert Number', 'Secret State', 'Secret Type', 'HTML URL','Repo Name','Repo Owner','Org Name','Org Owner']
   // Define the table rows
+  console.log('now we entered Table generation');
   const rows = alerts.map(alert => [
     alert.number.toString(),
     alert.state,
@@ -13,7 +14,7 @@ export function addToSummary(title: string, alerts: SecretScanningAlert[]) {
     alert.repository.name,
     alert.repository.owner.login,
     alert.orgName,
-    alert.orgOwner, 
+    alert.orgOwner 
   ])
 
   // Add the table to the Action summary

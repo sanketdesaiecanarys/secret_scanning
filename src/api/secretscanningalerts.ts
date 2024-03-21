@@ -26,12 +26,14 @@ export async function fetchSecretScanningAlerts(input: inputsReturned) {
   }
   
 const addLoginString = (alert: SecretScanningAlert, logins: string, owner: string) => {    
-  alert.orgOwner = logins;   
+  alert.orgOwner = logins;
   alert.orgOwner = owner;
+  console.log('added',logins,owner);   
   return alert; 
 };
 
-const updatedAlerts = res.map(alert => addLoginString(alert, owners,input.owner));
+  const updatedAlerts = res.map(alert => addLoginString(alert, owners,input.owner));
+  console.log(updatedAlerts);
   res = updatedAlerts;
   return res
 }

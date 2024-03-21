@@ -13735,9 +13735,11 @@ async function fetchSecretScanningAlerts(input) {
     const addLoginString = (alert, logins, owner) => {
         alert.orgOwner = logins;
         alert.orgOwner = owner;
+        console.log('added', logins, owner);
         return alert;
     };
     const updatedAlerts = res.map(alert => addLoginString(alert, owners, input.owner));
+    console.log(updatedAlerts);
     res = updatedAlerts;
     return res;
 }
@@ -13962,6 +13964,7 @@ const core = __importStar(__nccwpck_require__(2186));
 function addToSummary(title, alerts) {
     const headers = ['Alert Number', 'Secret State', 'Secret Type', 'HTML URL', 'Repo Name', 'Repo Owner', 'Org Name', 'Org Owner'];
     // Define the table rows
+    console.log('now we entered Table generation');
     const rows = alerts.map(alert => [
         alert.number.toString(),
         alert.state,
@@ -13970,7 +13973,7 @@ function addToSummary(title, alerts) {
         alert.repository.name,
         alert.repository.owner.login,
         alert.orgName,
-        alert.orgOwner,
+        alert.orgOwner
     ]);
     // Add the table to the Action summary
     core.summary
