@@ -36,14 +36,15 @@ type Owner = {
   login: string
   node_id: string
 }
+type OrgOwner = {
+  login: string
+  node_id: string
+}
 type RateLimitOptions = {
   request: {
     retryCount: number
   }
 }
 
-type OrgOwner = {
-  login: string
-  node_id: string
-}
+
 
