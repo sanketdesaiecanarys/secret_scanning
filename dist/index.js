@@ -13733,7 +13733,7 @@ async function fetchSecretScanningAlerts(input) {
         console.log('list of owners', owners);
     }
     const addLoginString = (alert, logins, owner) => {
-        alert.orgOwner = logins;
+        alert.orgName = logins;
         alert.orgOwner = owner;
         console.log('added', logins, owner);
         return alert;
