@@ -13939,7 +13939,7 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.getSummaryMarkdown = exports.writeSummary = exports.addToSummary = void 0;
 const core = __importStar(__nccwpck_require__(2186));
 function addToSummary(title, alerts) {
-    const headers = ['Alert Number', 'Secret State', 'Secret Type', 'HTML URL', 'Repo Name', 'Repo Owner', 'Organization Name', 'Organization Owner'];
+    const headers = ['Alert Number', 'Secret State', 'Secret Type', 'HTML URL', 'Repo Name', 'Repo Owner', 'Org Name', 'Org Owner'];
     // Define the table rows
     const rows = alerts.map(alert => [
         alert.number.toString(),
@@ -13949,7 +13949,7 @@ function addToSummary(title, alerts) {
         alert.repository.name,
         alert.repository.owner.login,
         alert.repository.owner.login,
-        alert.login.type,
+        alert.login,
     ]);
     // Add the table to the Action summary
     core.summary
