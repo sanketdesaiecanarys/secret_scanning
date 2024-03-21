@@ -65,7 +65,7 @@ function getOptions(input: inputsReturned) {
       case 'members':
         return{
           method: 'GET',
-          url: '/orgs/{org_name}/members',
+          url: '/orgs/{org_name}/members?role=admin',
           org_name: input.owner,
           per_page: 100
         }
