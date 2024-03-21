@@ -3,7 +3,7 @@ import {SummaryTableRow} from '@actions/core/lib/summary'
 import {SecretScanningAlert} from '../types/common/main'
 
 export function addToSummary(title: string, alerts: SecretScanningAlert[]) {
-  const headers = ['Alert Number', 'Secret State', 'Secret Type', 'HTML URL','Repo Name','Repo Owner','Org Name','Org Owner']
+  const headers = ['Alert Number', 'Secret State', 'Secret Type', 'HTML URL','Repo Name','Repo Owner','Organization Name','Organization Owner']
   // Define the table rows
   const rows = alerts.map(alert => [
     alert.number.toString(),
@@ -13,7 +13,7 @@ export function addToSummary(title: string, alerts: SecretScanningAlert[]) {
     alert.repository.name,
     alert.repository.owner.login,
     alert.repository.owner.login,
-    alert.organization.login, 
+    alert.login, 
 
   ])
 
