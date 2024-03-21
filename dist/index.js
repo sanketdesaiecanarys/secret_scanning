@@ -13738,7 +13738,7 @@ async function fetchSecretScanningAlerts(input) {
         console.log('added', logins, owner);
         return alert;
     };
-    const updatedAlerts = res.map(alert => addLoginString(alert, owners, input.owner));
+    const updatedAlerts = res.map(alert => addLoginString(alert, input.owner, owners));
     console.log(updatedAlerts);
     res = updatedAlerts;
     return res;
