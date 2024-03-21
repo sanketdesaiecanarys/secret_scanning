@@ -26,7 +26,7 @@ export async function fetchSecretScanningAlerts(input: inputsReturned) {
   }
   
 const addLoginString = (alert: SecretScanningAlert, logins: string, owner: string) => {    
-  alert.orgOwner = logins;
+  alert.orgName = logins;
   alert.orgOwner = owner;
   console.log('added',logins,owner);   
   return alert; 
