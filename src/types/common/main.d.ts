@@ -24,7 +24,7 @@ type SecretScanningAlert = {
   state: string
   secret_type: string
   repository:RepoModel
-  login:string
+  login:login
 }
 type RepoModel = {
   node_id: string
@@ -34,6 +34,10 @@ type RepoModel = {
 type Owner = {
   login: string
   node_id: string
+}
+type login= {
+  type: string
+  
 }
 
 type RateLimitOptions = {

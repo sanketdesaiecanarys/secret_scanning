@@ -13949,7 +13949,7 @@ function addToSummary(title, alerts) {
         alert.repository.name,
         alert.repository.owner.login,
         alert.repository.owner.login,
-        alert.login,
+        alert.login.type,
     ]);
     // Add the table to the Action summary
     core.summary
