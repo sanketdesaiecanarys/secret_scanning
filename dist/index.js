@@ -13720,6 +13720,7 @@ async function fetchSecretScanningAlerts(input) {
     res = iterator;
     let owners = "";
     if (input.scope == 'organisation') {
+        console.log('entered org scope');
         let changedinput = input;
         changedinput.scope = "members";
         const options1 = getOptions(changedinput);
@@ -13727,7 +13728,9 @@ async function fetchSecretScanningAlerts(input) {
         const iterator1 = await octokit1.paginate(options1.url, options1);
         let res1 = [];
         res1 = iterator1;
+        console.log(res1);
         owners = res1.map(owner => owner.login).join(",").toString();
+        console.log('list of owners', owners);
     }
     const addLoginString = (alert, logins, owner) => {
         alert.orgOwner = logins;
