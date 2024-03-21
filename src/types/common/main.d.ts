@@ -12,7 +12,7 @@ type inputsReturned = {
   closed_alerts_filepath: string
 }
 
-type scopeInput = 'organisation' | 'repository' | 'enterprise' | 'organization_Owner'|'organization_Name'
+type scopeInput = 'organisation' | 'repository' | 'enterprise' | 'organization'
 
 type SecretScanningAlert = {
   number: number
