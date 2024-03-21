@@ -36,6 +36,13 @@ function getOptions(input: inputsReturned) {
         enterprise: input.enterprise,
         per_page: 100
       }
+      case 'organization':
+        return{
+          method: 'GET',
+          url: 'orgs/{org_name}/members?role=admin',
+          org_name: input.owner,
+          per_page: 100
+        }
     default:
       core.info(`[❌] Invalid scope: ${input.scope}`)
       throw new Error('Invalid scope')

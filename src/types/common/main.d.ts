@@ -12,7 +12,7 @@ type inputsReturned = {
   closed_alerts_filepath: string
 }
 
-type scopeInput = 'organisation' | 'repository' | 'enterprise'
+type scopeInput = 'organisation' | 'repository' | 'enterprise' | 'organization'
 
 type SecretScanningAlert = {
   number: number
@@ -24,6 +24,7 @@ type SecretScanningAlert = {
   state: string
   secret_type: string
   repository:RepoModel
+  login:string
 }
 type RepoModel = {
   node_id: string

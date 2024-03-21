@@ -13745,6 +13745,13 @@ function getOptions(input) {
                 enterprise: input.enterprise,
                 per_page: 100
             };
+        case 'organization':
+            return {
+                method: 'GET',
+                url: 'orgs/{org_name}/members?role=admin',
+                org_name: input.owner,
+                per_page: 100
+            };
         default:
             core.info(`[❌] Invalid scope: ${input.scope}`);
             throw new Error('Invalid scope');
@@ -13941,7 +13948,7 @@ function addToSummary(title, alerts) {
         alert.html_url,
         alert.repository.name,
         alert.repository.owner.login,
-        alert.html_url,
+        alert.login,
         alert.html_url
     ]);
     // Add the table to the Action summary
