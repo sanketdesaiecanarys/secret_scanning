@@ -23,12 +23,17 @@ type SecretScanningAlert = {
   html_url: string
   state: string
   secret_type: string
-  orgName:string
-  orgOwner:string
-  login:string
-  name:string
+  repository:RepoModel
 }
-
+type RepoModel = {
+  node_id: string
+  name: string
+  owner: Owner
+}
+type Owner = {
+  login: string
+  node_id: string
+}
 type RateLimitOptions = {
   request: {
     retryCount: number

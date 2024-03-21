@@ -13939,8 +13939,8 @@ function addToSummary(title, alerts) {
         alert.state,
         alert.secret_type,
         alert.html_url,
-        alert.name,
-        alert.login,
+        alert.repository.name,
+        alert.repository.owner.login,
         alert.html_url,
         alert.html_url
     ]);
