@@ -25,7 +25,6 @@ type SecretScanningAlert = {
   secret_type: string
   repository:RepoModel
   organization:OrgOwner
-  login:string
 }
 type RepoModel = {
   node_id: string
