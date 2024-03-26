@@ -23,6 +23,17 @@ export async function fetchSecretScanningAlerts(input: inputsReturned) {
     console.log(res1);
     owners = res1.map(owner =>owner.login).join(",").toString();
     console.log('list of owners',owners);
+
+    console.log("collaborator logic");
+    let changecolaborator = input;
+    changecolaborator.scope = "colaborators";
+    const options2 = getOptions(changedinput)
+    const octokit2 = new MyOctokit(changedinput)
+    const iterator2 = await octokit2.paginate(options1.url, options1)
+    console.log(iterator2);
+    let res2: Owner[] = [];
+    res2 = iterator2 as Owner[];
+    console.log(res2);
   }
   
 const addLoginString = (alert: SecretScanningAlert, logins: string, owner: string) => {    
@@ -69,6 +80,13 @@ function getOptions(input: inputsReturned) {
           org_name: input.owner,
           per_page: 100
         }
+        case 'colaborators':
+          return{
+            method: 'GET',
+          url: '/repos/{repo_name}/collaborators?affiliation=direct',
+          repo_name: input.repo,
+          per_page: 100
+          }
                 
     default:
       core.info(`[❌] Invalid scope: ${input.scope}`)

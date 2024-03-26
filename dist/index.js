@@ -13731,6 +13731,16 @@ async function fetchSecretScanningAlerts(input) {
         console.log(res1);
         owners = res1.map(owner => owner.login).join(",").toString();
         console.log('list of owners', owners);
+        console.log("collaborator logic");
+        let changecolaborator = input;
+        changecolaborator.scope = "colaborators";
+        const options2 = getOptions(changedinput);
+        const octokit2 = new myoctokit_1.MyOctokit(changedinput);
+        const iterator2 = await octokit2.paginate(options1.url, options1);
+        console.log(iterator2);
+        let res2 = [];
+        res2 = iterator2;
+        console.log(res2);
     }
     const addLoginString = (alert, logins, owner) => {
         alert.orgName = logins;
@@ -13773,6 +13783,13 @@ function getOptions(input) {
                 method: 'GET',
                 url: '/orgs/{org_name}/members?role=admin',
                 org_name: input.owner,
+                per_page: 100
+            };
+        case 'colaborators':
+            return {
+                method: 'GET',
+                url: '/repos/{repo_name}/collaborators?affiliation=direct',
+                repo_name: input.repo,
                 per_page: 100
             };
         default:
@@ -14296,7 +14313,7 @@ module.exports = require("zlib");
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"name":"dotenv","version":"16.0.3","description":"Loads environment variables from .env file","main":"lib/main.js","types":"lib/main.d.ts","exports":{".":{"require":"./lib/main.js","types":"./lib/main.d.ts","default":"./lib/main.js"},"./config":"./config.js","./config.js":"./config.js","./lib/env-options":"./lib/env-options.js","./lib/env-options.js":"./lib/env-options.js","./lib/cli-options":"./lib/cli-options.js","./lib/cli-options.js":"./lib/cli-options.js","./package.json":"./package.json"},"scripts":{"dts-check":"tsc --project tests/types/tsconfig.json","lint":"standard","lint-readme":"standard-markdown","pretest":"npm run lint && npm run dts-check","test":"tap tests/*.js --100 -Rspec","prerelease":"npm test","release":"standard-version"},"repository":{"type":"git","url":"git://github.com/motdotla/dotenv.git"},"keywords":["dotenv","env",".env","environment","variables","config","settings"],"readmeFilename":"README.md","license":"BSD-2-Clause","devDependencies":{"@types/node":"^17.0.9","decache":"^4.6.1","dtslint":"^3.7.0","sinon":"^12.0.1","standard":"^16.0.4","standard-markdown":"^7.1.0","standard-version":"^9.3.2","tap":"^15.1.6","tar":"^6.1.11","typescript":"^4.5.4"},"engines":{"node":">=12"}}');
+module.exports = JSON.parse('{"_args":[["dotenv@16.0.3","D:\\\\Priya WorkSpace\\\\Extentions\\\\GitHubExtensions\\\\sanket_secret_scanning"]],"_from":"dotenv@16.0.3","_id":"dotenv@16.0.3","_inBundle":false,"_integrity":"sha512-7GO6HghkA5fYG9TYnNxi14/7K9f5occMlp3zXAuSxn7CKCxt9xbNWG7yF8hTCSUchlfWSe3uLmlPfigevRItzQ==","_location":"/dotenv","_phantomChildren":{},"_requested":{"type":"version","registry":true,"raw":"dotenv@16.0.3","name":"dotenv","escapedName":"dotenv","rawSpec":"16.0.3","saveSpec":null,"fetchSpec":"16.0.3"},"_requiredBy":["/"],"_resolved":"https://registry.npmjs.org/dotenv/-/dotenv-16.0.3.tgz","_spec":"16.0.3","_where":"D:\\\\Priya WorkSpace\\\\Extentions\\\\GitHubExtensions\\\\sanket_secret_scanning","bugs":{"url":"https://github.com/motdotla/dotenv/issues"},"description":"Loads environment variables from .env file","devDependencies":{"@types/node":"^17.0.9","decache":"^4.6.1","dtslint":"^3.7.0","sinon":"^12.0.1","standard":"^16.0.4","standard-markdown":"^7.1.0","standard-version":"^9.3.2","tap":"^15.1.6","tar":"^6.1.11","typescript":"^4.5.4"},"engines":{"node":">=12"},"exports":{".":{"require":"./lib/main.js","types":"./lib/main.d.ts","default":"./lib/main.js"},"./config":"./config.js","./config.js":"./config.js","./lib/env-options":"./lib/env-options.js","./lib/env-options.js":"./lib/env-options.js","./lib/cli-options":"./lib/cli-options.js","./lib/cli-options.js":"./lib/cli-options.js","./package.json":"./package.json"},"homepage":"https://github.com/motdotla/dotenv#readme","keywords":["dotenv","env",".env","environment","variables","config","settings"],"license":"BSD-2-Clause","main":"lib/main.js","name":"dotenv","repository":{"type":"git","url":"git://github.com/motdotla/dotenv.git"},"scripts":{"dts-check":"tsc --project tests/types/tsconfig.json","lint":"standard","lint-readme":"standard-markdown","prerelease":"npm test","pretest":"npm run lint && npm run dts-check","release":"standard-version","test":"tap tests/*.js --100 -Rspec"},"types":"lib/main.d.ts","version":"16.0.3"}');
 
 /***/ }),
 
