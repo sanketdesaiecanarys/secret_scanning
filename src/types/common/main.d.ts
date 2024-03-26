@@ -1,4 +1,4 @@
-export {inputsReturned, scopeInput, SecretScanningAlert, RateLimitOptions, Owner}
+export {inputsReturned, scopeInput, SecretScanningAlert, RateLimitOptions, Owner, RepoModel}
 
 type inputsReturned = {
   frequency: number

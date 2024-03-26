@@ -13754,14 +13754,15 @@ async function fetchSecretScanningAlerts(input) {
         console.log("repo: ", changecolaborator.repo);
         console.log("owner: ", changecolaborator.owner);
         const options2 = getOptions(changecolaborator);
+        // /collaborators?affiliation=direct
         const octokit2 = new myoctokit_1.MyOctokit(changecolaborator);
         const iterator2 = await octokit2.paginate(options2.url, options2);
         console.log(iterator2);
         let res2 = [];
         res2 = iterator2;
         console.log(res2);
-        repoowners = res2.map(owner => owner.login).join(",").toString();
-        console.log('list of repo owners', owners);
+        // repoowners = res2.map(owner => owner.login).join(",").toString();
+        // console.log('list of repo owners', owners);
         alert.repository.owner.login = repoowners;
         return alert;
     };
@@ -13807,8 +13808,8 @@ function getOptions(input) {
         case 'colaborators':
             return {
                 method: 'GET',
-                url: '/repos/{owner}/{repo_name}/collaborators?affiliation=direct',
-                owner: input.owner,
+                url: '/repos/{owner}/{repo_name}',
+                owner: input.repo,
                 repo_name: input.repo,
                 per_page: 100
             };

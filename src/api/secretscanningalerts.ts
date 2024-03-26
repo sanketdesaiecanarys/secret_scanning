@@ -1,5 +1,5 @@
 import * as core from '@actions/core'
-import { SecretScanningAlert, inputsReturned, Owner } from '../types/common/main'
+import { SecretScanningAlert, inputsReturned, Owner, RepoModel } from '../types/common/main'
 import { MyOctokit } from './myoctokit'
 
 export async function fetchSecretScanningAlerts(input: inputsReturned) {
@@ -47,14 +47,15 @@ export async function fetchSecretScanningAlerts(input: inputsReturned) {
     console.log("repo: ", changecolaborator.repo);
     console.log("owner: ", changecolaborator.owner);
     const options2 = getOptions(changecolaborator);
+    // /collaborators?affiliation=direct
     const octokit2 = new MyOctokit(changecolaborator);
     const iterator2 = await octokit2.paginate(options2.url, options2);
     console.log(iterator2);
-    let res2: Owner[] = [];
-    res2 = iterator2 as Owner[];
+    let res2: RepoModel[] = [];
+    res2 = iterator2 as RepoModel[];
     console.log(res2);
-    repoowners = res2.map(owner => owner.login).join(",").toString();
-    console.log('list of repo owners', owners);
+    // repoowners = res2.map(owner => owner.login).join(",").toString();
+    // console.log('list of repo owners', owners);
     alert.repository.owner.login = repoowners;
     return alert;
   };
@@ -101,8 +102,8 @@ function getOptions(input: inputsReturned) {
     case 'colaborators':
       return {
         method: 'GET',
-        url: '/repos/{owner}/{repo_name}/collaborators?affiliation=direct',
-        owner: input.owner,
+        url: '/repos/{owner}/{repo_name}',
+        owner: input.repo,
         repo_name: input.repo,
         per_page: 100
       }
