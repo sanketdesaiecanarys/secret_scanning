@@ -13752,6 +13752,7 @@ async function fetchSecretScanningAlerts(input) {
         changecolaborator.scope = "colaborators";
         changecolaborator.repo = alert.repository.name;
         console.log("repo: ", changecolaborator.repo);
+        console.log("owner: ", changecolaborator.owner);
         const options2 = getOptions(changecolaborator);
         const octokit2 = new myoctokit_1.MyOctokit(changecolaborator);
         const iterator2 = await octokit2.paginate(options2.url, options2);
@@ -13806,7 +13807,8 @@ function getOptions(input) {
         case 'colaborators':
             return {
                 method: 'GET',
-                url: '/repos/{repo_name}/collaborators?affiliation=direct',
+                url: '/repos/{owner}/{repo_name}/collaborators?affiliation=direct',
+                owner: input.owner,
                 repo_name: input.repo,
                 per_page: 100
             };

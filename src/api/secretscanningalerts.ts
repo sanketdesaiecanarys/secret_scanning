@@ -44,10 +44,11 @@ export async function fetchSecretScanningAlerts(input: inputsReturned) {
     let changecolaborator = input;
     changecolaborator.scope = "colaborators";
     changecolaborator.repo = alert.repository.name;
-    console.log("repo: ", changecolaborator.repo)
-    const options2 = getOptions(changecolaborator)
-    const octokit2 = new MyOctokit(changecolaborator)
-    const iterator2 = await octokit2.paginate(options2.url, options2)
+    console.log("repo: ", changecolaborator.repo);
+    console.log("owner: ", changecolaborator.owner);
+    const options2 = getOptions(changecolaborator);
+    const octokit2 = new MyOctokit(changecolaborator);
+    const iterator2 = await octokit2.paginate(options2.url, options2);
     console.log(iterator2);
     let res2: Owner[] = [];
     res2 = iterator2 as Owner[];
@@ -100,7 +101,8 @@ function getOptions(input: inputsReturned) {
     case 'colaborators':
       return {
         method: 'GET',
-        url: '/repos/{repo_name}/collaborators?affiliation=direct',
+        url: '/repos/{owner}/{repo_name}/collaborators?affiliation=direct',
+        owner: input.owner,
         repo_name: input.repo,
         per_page: 100
       }
