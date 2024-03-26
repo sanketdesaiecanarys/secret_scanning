@@ -13809,7 +13809,7 @@ function getOptions(input) {
             return {
                 method: 'GET',
                 url: '/repos/{owner}/{repo_name}',
-                owner: input.repo,
+                owner: input.owner,
                 repo_name: input.repo,
                 per_page: 100
             };
