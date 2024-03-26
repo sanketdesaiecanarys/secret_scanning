@@ -24,6 +24,7 @@ export async function fetchSecretScanningAlerts(input: inputsReturned) {
     owners = res1.map(owner =>owner.login).join(",").toString();
     console.log('list of owners',owners);
 
+    
     console.log("collaborator logic");
     let changecolaborator = input;
     changecolaborator.scope = "colaborators";
