@@ -1,17 +1,16 @@
 import * as core from '@actions/core'
-import {SecretScanningAlert, inputsReturned, Owner} from '../types/common/main'
-import {MyOctokit} from './myoctokit'
+import { SecretScanningAlert, inputsReturned, Owner } from '../types/common/main'
+import { MyOctokit } from './myoctokit'
 
 export async function fetchSecretScanningAlerts(input: inputsReturned) {
   let res: SecretScanningAlert[] = []
-  
+
   const options = getOptions(input)
   const octokit = new MyOctokit(input)
   const iterator = await octokit.paginate(options.url, options)
   res = iterator as SecretScanningAlert[]
-  let owners:string="";
-  if(input.scope == 'organisation')
-  {  
+  let owners: string = "";
+  if (input.scope == 'organisation') {
     console.log('entered org scope');
     let changedinput = input;
     changedinput.scope = "members";
@@ -21,31 +20,30 @@ export async function fetchSecretScanningAlerts(input: inputsReturned) {
     let res1: Owner[] = [];
     res1 = iterator1 as Owner[];
     console.log(res1);
-    owners = res1.map(owner =>owner.login).join(",").toString();
-    console.log('list of owners',owners);
+    owners = res1.map(owner => owner.login).join(",").toString();
+    console.log('list of owners', owners);
 
-    
     console.log("collaborator logic");
     let changecolaborator = input;
     changecolaborator.scope = "colaborators";
-    const options2 = getOptions(changedinput)
-    const octokit2 = new MyOctokit(changedinput)
-    const iterator2 = await octokit2.paginate(options1.url, options1)
+    const options2 = getOptions(changecolaborator)
+    const octokit2 = new MyOctokit(changecolaborator)
+    const iterator2 = await octokit2.paginate(options2.url, options2)
     console.log(iterator2);
     let res2: Owner[] = [];
     res2 = iterator2 as Owner[];
     console.log(res2);
   }
-  
-const addLoginString = (alert: SecretScanningAlert, logins: string, owner: string) => {    
-  alert.orgName = logins;
-  alert.orgOwner = owner;
-  console.log('added',logins,owner);   
-  return alert; 
-};
 
-  const updatedAlerts = res.map(alert => addLoginString(alert,input.owner,owners));
-  console.log(updatedAlerts);
+  const addLoginString = (alert: SecretScanningAlert, logins: string, owner: string) => {
+    alert.orgName = logins;
+    alert.orgOwner = owner;
+    console.log('added', logins, owner);   
+    return alert;
+  };
+
+  const updatedAlerts = res.map(alert => addLoginString(alert, input.owner, owners));
+  //console.log(updatedAlerts);
   res = updatedAlerts;
   return res
 }
@@ -74,21 +72,21 @@ function getOptions(input: inputsReturned) {
         enterprise: input.enterprise,
         per_page: 100
       }
-      case 'members':
-        return{
-          method: 'GET',
-          url: '/orgs/{org_name}/members?role=admin',
-          org_name: input.owner,
-          per_page: 100
-        }
-        case 'colaborators':
-          return{
-            method: 'GET',
-          url: '/repos/{repo_name}/collaborators?affiliation=direct',
-          repo_name: input.repo,
-          per_page: 100
-          }
-                
+    case 'members':
+      return {
+        method: 'GET',
+        url: '/orgs/{org_name}/members?role=admin',
+        org_name: input.owner,
+        per_page: 100
+      }
+    case 'colaborators':
+      return {
+        method: 'GET',
+        url: '/repos/{repo_name}/collaborators?affiliation=direct',
+        repo_name: input.repo,
+        per_page: 100
+      }
+
     default:
       core.info(`[❌] Invalid scope: ${input.scope}`)
       throw new Error('Invalid scope')

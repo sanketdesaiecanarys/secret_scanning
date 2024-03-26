@@ -13734,9 +13734,9 @@ async function fetchSecretScanningAlerts(input) {
         console.log("collaborator logic");
         let changecolaborator = input;
         changecolaborator.scope = "colaborators";
-        const options2 = getOptions(changedinput);
-        const octokit2 = new myoctokit_1.MyOctokit(changedinput);
-        const iterator2 = await octokit2.paginate(options1.url, options1);
+        const options2 = getOptions(changecolaborator);
+        const octokit2 = new myoctokit_1.MyOctokit(changecolaborator);
+        const iterator2 = await octokit2.paginate(options2.url, options2);
         console.log(iterator2);
         let res2 = [];
         res2 = iterator2;
@@ -13749,7 +13749,7 @@ async function fetchSecretScanningAlerts(input) {
         return alert;
     };
     const updatedAlerts = res.map(alert => addLoginString(alert, input.owner, owners));
-    console.log(updatedAlerts);
+    //console.log(updatedAlerts);
     res = updatedAlerts;
     return res;
 }
