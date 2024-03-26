@@ -13731,9 +13731,27 @@ async function fetchSecretScanningAlerts(input) {
         console.log(res1);
         owners = res1.map(owner => owner.login).join(",").toString();
         console.log('list of owners', owners);
+        // console.log("collaborator logic");
+        // let changecolaborator = input;
+        // changecolaborator.scope = "colaborators";
+        // const options2 = getOptions(changecolaborator)
+        // const octokit2 = new MyOctokit(changecolaborator)
+        // const iterator2 = await octokit2.paginate(options2.url, options2)
+        // console.log(iterator2);
+        // let res2: Owner[] = [];
+        // res2 = iterator2 as Owner[];
+        // console.log(res2);
+    }
+    const addLoginString = async (alert, logins, owner) => {
+        alert.orgName = logins;
+        alert.orgOwner = owner;
+        console.log('added', logins, owner);
+        let repoowners = "";
         console.log("collaborator logic");
         let changecolaborator = input;
         changecolaborator.scope = "colaborators";
+        changecolaborator.repo = alert.repository.name;
+        console.log("repo: ", changecolaborator.repo);
         const options2 = getOptions(changecolaborator);
         const octokit2 = new myoctokit_1.MyOctokit(changecolaborator);
         const iterator2 = await octokit2.paginate(options2.url, options2);
@@ -13741,15 +13759,15 @@ async function fetchSecretScanningAlerts(input) {
         let res2 = [];
         res2 = iterator2;
         console.log(res2);
-    }
-    const addLoginString = (alert, logins, owner) => {
-        alert.orgName = logins;
-        alert.orgOwner = owner;
-        console.log('added', logins, owner);
+        repoowners = res2.map(owner => owner.login).join(",").toString();
+        console.log('list of repo owners', owners);
+        alert.repository.owner.login = repoowners;
         return alert;
     };
-    const updatedAlerts = res.map(alert => addLoginString(alert, input.owner, owners));
+    const updatePromises = res.map(async (alert) => await addLoginString(alert, input.owner, owners));
     //console.log(updatedAlerts);
+    //res = await updatedAlerts;
+    const updatedAlerts = await Promise.all(updatePromises);
     res = updatedAlerts;
     return res;
 }
